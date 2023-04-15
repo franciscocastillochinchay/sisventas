@@ -73,8 +73,8 @@ if ($_SESSION['ventas']==1) {
       <label for="">Tipo Comprobante(*): </label>
      <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" required>
        <option value="Boleta">Boleta</option>
-       <option value="Factura">Factura</option>
-       <option value="Ticket">Ticket</option>
+       <!-- <option value="Factura">Factura</option>
+       <option value="Ticket">Ticket</option> -->
      </select>
     </div>
      <div class="form-group col-lg-2 col-md-2 col-xs-6">
