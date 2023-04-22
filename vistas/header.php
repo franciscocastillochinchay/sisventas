@@ -145,6 +145,7 @@ if ($_SESSION['ventas']==1) {
           <ul class="treeview-menu">
             <li><a href="venta.php"><i class="fa fa-circle-o"></i> ventas</a></li>
             <li><a href="cliente.php"><i class="fa fa-circle-o"></i> clientes</a></li>
+            <li><a href="pagos.php"><i class="fa fa-circle-o"></i> Pagos</a></li>
           </ul>
         </li>';
 }

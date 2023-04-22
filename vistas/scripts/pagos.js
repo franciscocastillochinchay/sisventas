@@ -10,7 +10,7 @@ function init(){
    });
 
    //cargamos los items al select cliente
-   $.post("../ajax/venta.php?op=selectCliente", function(r){
+   $.post("../ajax/pagos.php?op=selectCliente", function(r){
    	$("#idcliente").html(r);
    	$('#idcliente').selectpicker('refresh');
    });
@@ -88,7 +88,7 @@ function listar(){
 		],
 		"ajax":
 		{
-			url:'../ajax/venta.php?op=listar',
+			url:'../ajax/pagos.php?op=listar',
 			type: "get",
 			dataType : "json",
 			error:function(e){
@@ -111,7 +111,7 @@ function listarArticulos(){
 		],
 		"ajax":
 		{
-			url:'../ajax/venta.php?op=listarArticulos',
+			url:'../ajax/pagos.php?op=listarArticulos',
 			type: "get",
 			dataType : "json",
 			error:function(e){
@@ -130,7 +130,7 @@ function guardaryeditar(e){
      var formData=new FormData($("#formulario")[0]);
 
      $.ajax({
-     	url: "../ajax/venta.php?op=guardaryeditar",
+     	url: "../ajax/pagos.php?op=guardaryeditar",
      	type: "POST",
      	data: formData,
      	contentType: false,
@@ -147,7 +147,7 @@ function guardaryeditar(e){
 }
 
 function mostrar(idventa){
-	$.post("../ajax/venta.php?op=mostrar",{idventa : idventa},
+	$.post("../ajax/pagos.php?op=mostrar",{idventa : idventa},
 		function(data,status)
 		{
 			data=JSON.parse(data);
@@ -168,7 +168,7 @@ function mostrar(idventa){
 			$("#btnCancelar").show();
 			$("#btnAgregarArt").hide();
 		});
-	$.post("../ajax/venta.php?op=listarDetalle&id="+idventa,function(r){
+	$.post("../ajax/pagos.php?op=listarDetalle&id="+idventa,function(r){
 		$("#detalles").html(r);
 	});
 
@@ -176,7 +176,7 @@ function mostrar(idventa){
 
 
 function pagos(idventa){
-	$.post("../ajax/venta.php?op=mostrar",{idventa : idventa},
+	$.post("../ajax/pagos.php?op=mostrar",{idventa : idventa},
 		function(data,status)
 		{
 			data=JSON.parse(data);
@@ -197,7 +197,7 @@ function pagos(idventa){
 			$("#btnCancelar").show();
 			$("#btnAgregarArt").hide();
 		});
-	$.post("../ajax/venta.php?op=listarDetalle&id="+idventa,function(r){
+	$.post("../ajax/pagos.php?op=listarDetalle&id="+idventa,function(r){
 		$("#detalles").html(r);
 	});
 
@@ -208,7 +208,7 @@ function pagos(idventa){
 function anular(idventa){
 	bootbox.confirm("¿Esta seguro de desactivar este dato?", function(result){
 		if (result) {
-			$.post("../ajax/venta.php?op=anular", {idventa : idventa}, function(e){
+			$.post("../ajax/pagos.php?op=anular", {idventa : idventa}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});

@@ -10,7 +10,7 @@ define("DB_NAME", "dbsistema");
 define("DB_USERNAME", "root");
 
 //conraseña del usuario de base de datos
-define("DB_PASSWORD", "");
+define("DB_PASSWORD", "driver02");
 
 //codificacion de caracteres
 define("DB_ENCODE", "utf8");
