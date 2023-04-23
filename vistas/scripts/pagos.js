@@ -5,7 +5,7 @@ function init(){
    mostrarform(false);
    listar();
 
-   $("#formulario").on("submit",function(e){
+   $("#formulariopagos").on("submit",function(e){
    	guardaryeditar(e);
    });
 
@@ -24,7 +24,7 @@ function limpiar(){
 	$("#cliente").val("");
 	$("#serie_comprobante").val("");
 	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
+	$("#saldo").val("0");
 
 	$("#total_venta").val("");
 	$(".filas").remove();
@@ -127,7 +127,7 @@ function listarArticulos(){
 function guardaryeditar(e){
      e.preventDefault();//no se activara la accion predeterminada 
      //$("#btnGuardar").prop("disabled",true);
-     var formData=new FormData($("#formulario")[0]);
+     var formData=new FormData($("#formulariopagos")[0]);
 
      $.ajax({
      	url: "../ajax/pagos.php?op=guardaryeditar",
@@ -160,7 +160,7 @@ function mostrar(idventa){
 			$("#serie_comprobante").val(data.serie_comprobante);
 			$("#num_comprobante").val(data.num_comprobante);
 			$("#fecha_hora").val(data.fecha);
-			$("#impuesto").val(data.impuesto);
+			$("#saldo").val(data.saldo);
 			$("#idventa").val(data.idventa);
 			
 			//ocultar y mostrar los botones
@@ -189,15 +189,15 @@ function pagos(idventa){
 			$("#serie_comprobante").val(data.serie_comprobante);
 			$("#num_comprobante").val(data.num_comprobante);
 			$("#fecha_hora").val(data.fecha);
-			$("#impuesto").val(data.impuesto);
+			$("#saldo").val(data.saldo);
 			$("#idventa").val(data.idventa);
 			
 			//ocultar y mostrar los botones
 			$("#btnGuardar").hide();
 			$("#btnCancelar").show();
-			$("#btnAgregarArt").hide();
+			//$("#btnAgregarArt").hide();
 		});
-	$.post("../ajax/pagos.php?op=listarDetalle&id="+idventa,function(r){
+	$.post("../ajax/pagos.php?op=listarDetallePagos&id="+idventa,function(r){
 		$("#detalles").html(r);
 	});
 
@@ -217,7 +217,7 @@ function anular(idventa){
 }
 
 //declaramos variables necesarias para trabajar con las compras y sus detalles
-var impuesto=18;
+var saldo=18;
 var cont=0;
 var detalles=0;
 
@@ -227,9 +227,9 @@ $("#tipo_comprobante").change(marcarImpuesto);
 function marcarImpuesto(){
 	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
 	if (tipo_comprobante=='Factura') {
-		$("#impuesto").val(impuesto);
+		$("#saldo").val(saldo);
 	}else{
-		$("#impuesto").val("0");
+		$("#saldo").val("0");
 	}
 }
 

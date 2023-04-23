@@ -59,48 +59,69 @@ if ($_SESSION['ventas']==1) {
 <div class="panel-body" style="height: 400px;" id="formularioregistros">
   <form action="" name="formulario" id="formulario" method="POST">
     <div class="form-group col-lg-8 col-md-8 col-xs-12">
-      <label for="">Cliente(*):</label>
+      <label for="">Cliente Pago(*):</label>
       <input class="form-control" type="hidden" name="idventa" id="idventa">
       <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true" required>
         
       </select>
     </div>
-      <div class="form-group col-lg-4 col-md-4 col-xs-12">
+
+    <div class="form-group col-lg-4 col-md-4 col-xs-12">
       <label for="">Fecha(*): </label>
-      <input class="form-control" type="datetime-local" name="fecha_hora" id="fecha_hora" required>
+      <input class="form-control" type="datetime-local" name="fecha_hora" id="fecha_hora" >
     </div>
      <div class="form-group col-lg-6 col-md-6 col-xs-12">
       <label for="">Tipo Comprobante(*): </label>
-     <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" required>
+     <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" >
        <option value="Boleta">Boleta</option>
        <!-- <option value="Factura">Factura</option>
        <option value="Ticket">Ticket</option> -->
      </select>
     </div>
-     <div class="form-group col-lg-2 col-md-2 col-xs-6">
+     
+    <div class="form-group col-lg-2 col-md-2 col-xs-6">
       <label for="">Serie: </label>
-      <input class="form-control" type="text" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Seriee">
+      <input class="form-control" type="text" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Seriee" disabled>
     </div>
      <div class="form-group col-lg-2 col-md-2 col-xs-6">
       <label for="">Número: </label>
-      <input class="form-control" type="text" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" required>
+      <input class="form-control" type="text" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" disabled>
     </div>
+    
     <div class="form-group col-lg-2 col-md-2 col-xs-6">
-      <label for="">Impuesto: </label>
-      <input class="form-control" type="text" name="impuesto" id="impuesto" value="0" >
+      <label for="">Saldo: </label>
+      <input class="form-control" type="text" name="saldo" id="saldo" value="0" disabled>
     </div>
-   
-    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-     <a data-toggle="modal" href="#myModal">     <!-- Llama a myModal -->
-       <button id="btnAgregarArt" type="button" class="btn btn-primary"><span class="fa fa-plus"></span>Agregar Articulos  <-</button>
-     </a>
-    </div>
+
+    <form action="" name="formularioPagos" id="formulariopagos" method="POST">
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+        <label for="">Numero: </label>
+        <input class="form-control" type="text" name="numeropago" id="numeropago" value="0" >
+      </div>
+
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+        <label for="">Monto: </label>
+        <input class="form-control" type="text" name="montopago" id="montopago" value="0" >
+      </div>
+
+      <div class="form-group col-lg-4 col-md-4 col-xs-12">
+        <label for="">Fecha de pago (*): </label>
+        <input class="form-control" type="datetime-local" name="fechapago" id="fechapago" required>
+      </div>
+
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <br>
+        <button class="btn btn-primary" type="submit" id="btnGuardar1"><i class="fa fa-save"></i>Guardar Pagos</button>
+      </div>
+
+    </form>
+
 
 <div class="form-group col-lg-12 col-md-12 col-xs-12">
      <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
        <thead style="background-color:#A9D0F5">
         <th>Opciones</th>
-        <th>Articulo</th>
+        <th>Articulo22</th>
         <th>stock</th>
         <th>Cantidad</th>
         <th>Precio Venta</th>

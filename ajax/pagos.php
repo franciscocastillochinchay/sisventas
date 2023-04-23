@@ -3,7 +3,7 @@ require_once "../modelos/Pagos.php";
 if (strlen(session_id())<1) 
 	session_start();
 
-$venta = new Venta();
+$venta = new Pagos();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
@@ -12,7 +12,7 @@ $tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_
 $serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
 $num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
 $fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
-$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
+$saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
 $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
 
 
@@ -22,7 +22,7 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 	if (empty($idventa)) {
-		$rspta=$venta->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]); 
+		$rspta=$venta->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$saldo,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]); 
 		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
 	}else{
         
@@ -40,37 +40,37 @@ switch ($_GET["op"]) {
 		echo json_encode($rspta);
 		break;
 
-	case 'listarDetalle':
+	case 'listarDetallePagos':
 		//recibimos el idventa
 		$id=$_GET['id'];
 
-		$rspta=$venta->listarDetalle($id);
+		$rspta=$venta->listarDetallePagos($id);
 		$total=0;
 		echo ' <thead style="background-color:#A9D0F5">
         <th>Opciones</th>
-        <th>Articulo</th>
-        <th>Cantidad</th>
-        <th>Precio Venta</th>
-        <th>Descuento</th>
-        <th>Subtotal</th>
+        <th>Numero</th>
+        <th>Fecha pago</th>
+        <th>Monto</th>
+        <th>Estado</th>
+        <th>Descripcion</th>
        </thead>';
 		while ($reg=$rspta->fetch_object()) {
 			echo '<tr class="filas">
 			<td></td>
-			<td>'.$reg->nombre.'</td>
-			<td>'.$reg->cantidad.'</td>
-			<td>'.$reg->precio_venta.'</td>
-			<td>'.$reg->descuento.'</td>
-			<td>'.$reg->subtotal.'</td></tr>';
-			$total=$total+($reg->precio_venta*$reg->cantidad-$reg->descuento);
+			<td>'.$reg->numero.'</td>
+			<td>'.$reg->fechapago.'</td>
+			<td>'.$reg->monto.'</td>
+			<td>'.$reg->estado.'</td>
+			<td>'.$reg->descripcion.'</td></tr>';
+			
 		}
 		echo '<tfoot>
-         <th>TOTAL</th>
          <th></th>
          <th></th>
          <th></th>
          <th></th>
-         <th><h4 id="total">S/. '.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th>
+         <th></th>
+         
        </tfoot>';
 		break;
 
