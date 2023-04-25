@@ -10,21 +10,11 @@ public function __construct(){
 }
 
 //metodo insertar registro
-public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$saldo,$total_venta,$idarticulo,$cantidad,$precio_venta,$descuento){
-	$sql="INSERT INTO venta (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,saldo,total_venta,estado) VALUES ('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$saldo','$total_venta','Aceptado')";
-	//return ejecutarConsulta($sql);
-	 $idventanew=ejecutarConsulta_retornarID($sql);
-	 $num_elementos=0;
-	 $sw=true;
-	 while ($num_elementos < count($idarticulo)) {
-
-	 	$sql_detalle="INSERT INTO detalle_venta (idventa,idarticulo,cantidad,precio_venta,descuento) VALUES('$idventanew','$idarticulo[$num_elementos]','$cantidad[$num_elementos]','$precio_venta[$num_elementos]','$descuento[$num_elementos]')";
-
-	 	ejecutarConsulta($sql_detalle) or $sw=false;
-
-	 	$num_elementos=$num_elementos+1;
-	 }
-	 return $sw;
+public function insertar($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion){
+	$sql="INSERT INTO pagos (idventa,idusuario,fecha_hora,numero,monto,estado,descripcion) VALUES ('$idventapago','$idusuario','$fechapago','$numeropago','$montopago','Aceptado','$descripcion')";
+	
+	//echo "<script>console.log('Debug Objects: " . $sql . "' );</script>";
+	 return ejecutarConsulta($sql);
 }
 
 public function anular($idventa){

@@ -5,15 +5,45 @@ function init(){
    mostrarform(false);
    listar();
 
-   $("#formulariopagos").on("submit",function(e){
-   	guardaryeditar(e);
+   $("#formulariodetallespagos").on("submit",function(e){
+   		guardaryeditarpagos(e);
+		//alert("formulariodetallespagos")
+
    });
 
    //cargamos los items al select cliente
-   $.post("../ajax/pagos.php?op=selectCliente", function(r){
-   	$("#idcliente").html(r);
-   	$('#idcliente').selectpicker('refresh');
-   });
+  $.post("../ajax/pagos.php?op=selectCliente", function(r){
+  	$("#idcliente").html(r);
+	$('#idcliente').selectpicker('refresh');
+  });
+
+}
+
+function registrarPago(){
+	
+	var  numeropago = $("#numeropago").val();
+ 	var montopago = $("#montopago").val();
+
+	 tabla=$('#tbldetallespagos').dataTable({
+		"aProcessing": true,//activamos el procedimiento del datatable
+		"aServerSide": true,//paginacion y filrado realizados por el server
+		dom: 'Bfrtip',//definimos los elementos del control de la tabla
+		buttons: [
+
+		],
+		"ajax":
+		{
+			url:'../ajax/pagos.php?op=listarArticulos',
+			type: "get",
+			dataType : "json",
+			error:function(e){
+				console.log(e.responseText);
+			}
+		},
+		"bDestroy":true,
+		"iDisplayLength":5,//paginacion
+		"order":[[0,"desc"]]//ordenar (columna, orden)
+	}).DataTable();
 
 }
 
@@ -124,13 +154,13 @@ function listarArticulos(){
 	}).DataTable();
 }
 //funcion para guardaryeditar
-function guardaryeditar(e){
-     e.preventDefault();//no se activara la accion predeterminada 
-     //$("#btnGuardar").prop("disabled",true);
-     var formData=new FormData($("#formulariopagos")[0]);
+function guardaryeditarpagos(e){
+    
+	 e.preventDefault();
+     var formData=new FormData($("#formulariodetallespagos")[0]);
 
      $.ajax({
-     	url: "../ajax/pagos.php?op=guardaryeditar",
+     	url: "../ajax/pagos.php?op=guardaryeditarpagos",
      	type: "POST",
      	data: formData,
      	contentType: false,
@@ -143,9 +173,12 @@ function guardaryeditar(e){
      	}
      });
 
-     limpiar();
+    // limpiar();
+	 
+	
 }
 
+/*
 function mostrar(idventa){
 	$.post("../ajax/pagos.php?op=mostrar",{idventa : idventa},
 		function(data,status)
@@ -171,11 +204,10 @@ function mostrar(idventa){
 	$.post("../ajax/pagos.php?op=listarDetalle&id="+idventa,function(r){
 		$("#detalles").html(r);
 	});
-
 }
+*/
 
-
-function pagos(idventa){
+function listardocumentos(idventa){
 	$.post("../ajax/pagos.php?op=mostrar",{idventa : idventa},
 		function(data,status)
 		{
@@ -190,7 +222,7 @@ function pagos(idventa){
 			$("#num_comprobante").val(data.num_comprobante);
 			$("#fecha_hora").val(data.fecha);
 			$("#saldo").val(data.saldo);
-			$("#idventa").val(data.idventa);
+			$("#idventapago").val(data.idventa);
 			
 			//ocultar y mostrar los botones
 			$("#btnGuardar").hide();
@@ -198,7 +230,7 @@ function pagos(idventa){
 			//$("#btnAgregarArt").hide();
 		});
 	$.post("../ajax/pagos.php?op=listarDetallePagos&id="+idventa,function(r){
-		$("#detalles").html(r);
+		$("#tbldetallespagos").html(r);
 	});
 
 }
@@ -251,7 +283,7 @@ function agregarDetalle(idarticulo,articulo,precio_venta,stock){
 		'</tr>';
 		cont++;
 		detalles++;
-		$('#detalles').append(fila);
+		$('#tbldetallespagos').append(fila);
 		modificarSubtotales();
 
 	}else{

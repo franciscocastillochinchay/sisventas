@@ -6,6 +6,7 @@ if (strlen(session_id())<1)
 $venta = new Pagos();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
+
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $idusuario=$_SESSION["idusuario"];
 $tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
@@ -16,13 +17,17 @@ $saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
 $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
 
 
-
+$numeropago=isset($_POST["numeropago"])? limpiarCadena($_POST["numeropago"]):"";
+$montopago=isset($_POST["montopago"])? limpiarCadena($_POST["montopago"]):"";
+$fechapago=isset($_POST["fechapago"])? limpiarCadena($_POST["fechapago"]):"";
+$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+$idventapago=isset($_POST["idventapago"])? limpiarCadena($_POST["idventapago"]):"";
 
 
 switch ($_GET["op"]) {
-	case 'guardaryeditar':
+	case 'guardaryeditarpagos':
 	if (empty($idventa)) {
-		$rspta=$venta->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$saldo,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]); 
+		$rspta=$venta->insertar($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion); 
 		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
 	}else{
         
@@ -87,7 +92,7 @@ switch ($_GET["op"]) {
 
 			$data[]=array(
             "0"=>
-			'<button class="btn btn-success btn-xs" onclick="pagos('.$reg->idventa.')"><i class="fa fa-credit-card"></i></button>',
+			'<button class="btn btn-success btn-xs" onclick="listardocumentos('.$reg->idventa.')"><i class="fa fa-credit-card"></i></button>',
             "1"=>$reg->fecha,
             "2"=>$reg->cliente,
             "3"=>$reg->usuario,

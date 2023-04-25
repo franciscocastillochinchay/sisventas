@@ -12,142 +12,148 @@ require 'header.php';
 if ($_SESSION['ventas']==1) {
 
  ?>
-    <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-
       <!-- Default box -->
       <div class="row">
         <div class="col-md-12">
-      <div class="box">
-<div class="box-header with-border">
-  <h1 class="box-title">Pagos <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>Agregar</button></h1>
-  <div class="box-tools pull-right">
-    
-  </div>
-</div>
-<!--box-header-->
-<!--centro-->
-<div class="panel-body table-responsive" id="listadoregistros">
-  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-    <thead>
-      <th>Opciones</th>
-      <th>Fecha</th>
-      <th>Cliente</th>
-      <th>Usuario</th>
-      <th>Documento</th>
-      <th>Número</th>
-      <th>Total Venta</th>
-      <th>Estado</th>
-    </thead>
-    <tbody>
-    </tbody>
-    <tfoot>
-      <th>Opciones</th>
-      <th>Fecha</th>
-      <th>Cliente</th>
-      <th>Usuario</th>
-      <th>Documento</th>
-      <th>Número</th>
-      <th>Total Venta</th>
-      <th>Estado</th>
-    </tfoot>   
-  </table>
-</div>
+          <div class="box">
+            <div class="box-header with-border">
+              <h1 class="box-title">Pagos 
+              </h1>
+                <div class="box-tools pull-right">
+                </div>
+            </div>
+              <!--box-header-->
+              <!--centro-->
+              <div class="panel-body table-responsive" id="listadoregistros">
+                <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                  <thead>
+                    <th>Opciones</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Usuario</th>
+                    <th>Documento</th>
+                    <th>Número</th>
+                    <th>Total Venta</th>
+                    <th>Estado</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                  <tfoot>
+                    <th>Opciones</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Usuario</th>
+                    <th>Documento</th>
+                    <th>Número</th>
+                    <th>Total Venta</th>
+                    <th>Estado</th>
+                  </tfoot>   
+                </table>
+              </div>
 
-    <!-- AGREGAR NUEVA VENTA -->
+<!-- AGREGAR NUEVA VENTA -->
 <div class="panel-body" style="height: 400px;" id="formularioregistros">
-  <form action="" name="formulario" id="formulario" method="POST">
-    <div class="form-group col-lg-8 col-md-8 col-xs-12">
-      <label for="">Cliente Pago(*):</label>
-      <input class="form-control" type="hidden" name="idventa" id="idventa">
-      <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true" required>
-        
-      </select>
-    </div>
 
-    <div class="form-group col-lg-4 col-md-4 col-xs-12">
-      <label for="">Fecha(*): </label>
-      <input class="form-control" type="datetime-local" name="fecha_hora" id="fecha_hora" >
-    </div>
-     <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">Tipo Comprobante(*): </label>
-     <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" >
-       <option value="Boleta">Boleta</option>
-       <!-- <option value="Factura">Factura</option>
-       <option value="Ticket">Ticket</option> -->
-     </select>
-    </div>
-     
-    <div class="form-group col-lg-2 col-md-2 col-xs-6">
-      <label for="">Serie: </label>
-      <input class="form-control" type="text" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Seriee" disabled>
-    </div>
-     <div class="form-group col-lg-2 col-md-2 col-xs-6">
-      <label for="">Número: </label>
-      <input class="form-control" type="text" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" disabled>
-    </div>
-    
-    <div class="form-group col-lg-2 col-md-2 col-xs-6">
-      <label for="">Saldo: </label>
-      <input class="form-control" type="text" name="saldo" id="saldo" value="0" disabled>
-    </div>
-
-    <form action="" name="formularioPagos" id="formulariopagos" method="POST">
-      <div class="form-group col-lg-2 col-md-2 col-xs-6">
-        <label for="">Numero: </label>
-        <input class="form-control" type="text" name="numeropago" id="numeropago" value="0" >
-      </div>
-
-      <div class="form-group col-lg-2 col-md-2 col-xs-6">
-        <label for="">Monto: </label>
-        <input class="form-control" type="text" name="montopago" id="montopago" value="0" >
+    <form action="" name="formulario" id="formulario" method="POST">
+      <div class="form-group col-lg-8 col-md-8 col-xs-12">
+        <label for="">Cliente Pago(*):</label>
+        <input class="form-control" type="hidden" name="idventa" id="idventa">
+        <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true" required>
+          
+        </select>
       </div>
 
       <div class="form-group col-lg-4 col-md-4 col-xs-12">
-        <label for="">Fecha de pago (*): </label>
-        <input class="form-control" type="datetime-local" name="fechapago" id="fechapago" required>
+        <label for="">Fecha(*): </label>
+        <input class="form-control" type="datetime-local" name="fecha_hora" id="fecha_hora" >
       </div>
 
-      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <br>
-        <button class="btn btn-primary" type="submit" id="btnGuardar1"><i class="fa fa-save"></i>Guardar Pagos</button>
+      <div class="form-group col-lg-6 col-md-6 col-xs-12">
+        <label for="">Tipo Comprobante(*): </label>
+        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" >
+          <option value="Boleta">Boleta</option>
+          <!-- <option value="Factura">Factura</option>
+          <option value="Ticket">Ticket</option> -->
+        </select>
+      </div>
+      
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+        <label for="">Serie: </label>
+        <input class="form-control" type="text" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Seriee" disabled>
+      </div>
+      
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+        <label for="">Número: </label>
+        <input class="form-control" type="text" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" disabled>
+      </div>
+      
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+        <label for="">Saldo: </label>
+        <input class="form-control" type="text" name="saldo" id="saldo" value="0" disabled>
+      </div>
+
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>  Guardar</button>
+          <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
       </div>
 
     </form>
+    
+    <form action="" name="formulariodetallespagos" id="formulariodetallespagos" method="POST">
+      <input class="form-control" type="hidden" name="idventapago" id="idventapago">
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+         <label for="">Numero: </label>
+         <input class="form-control" type="text" name="numeropago" id="numeropago" value="0" >
+      </div>
 
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+         <label for="">Monto: </label>
+         <input class="form-control" type="text" name="montopago" id="montopago" value="0" >
+      </div>
 
-<div class="form-group col-lg-12 col-md-12 col-xs-12">
-     <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-       <thead style="background-color:#A9D0F5">
-        <th>Opciones</th>
-        <th>Articulo22</th>
-        <th>stock</th>
-        <th>Cantidad</th>
-        <th>Precio Venta</th>
-        <th>Descuento</th>
-        <th>Subtotal</th>
-       </thead>
-       <tfoot>
-         <th>TOTAL</th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th><h4 id="total">S/. 0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th>
-       </tfoot>
-       <tbody>
-         
-       </tbody>
-     </table>
-    </div>
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>  Guardar</button>
-      <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
-    </div>
-  </form>
+      <div class="form-group col-lg-4 col-md-4 col-xs-12">
+         <label for="">Fecha de pago (*): </label>
+         <input class="form-control" type="datetime-local" name="fechapago" id="fechapago" required>
+      </div>
+
+      <div class="form-group col-lg-2 col-md-2 col-xs-6">
+         <label for="">Descripcion: </label>
+         <input class="form-control" type="text" name="descripcion" id="descripcion" value="0" >
+      </div>
+
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <button class="btn btn-primary" type="submit" id="btnGuardarPagos"><i class="fa fa-save"></i>Guardar Pagos</button>
+          
+      </div>
+
+      <div class="form-group col-lg-12 col-md-12 col-xs-12">
+        <table id="tbldetallespagos" class="table table-striped table-bordered table-condensed table-hover">
+          <thead style="background-color:#A9D0F5">
+            <th>Opciones</th>
+            <th>Numero</th>
+            <th>Fecha pago	</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Descripcion</th>
+            
+          </thead>
+          
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+      
+      
+    </form>
+
 </div>
+
+
+
 <!--fin centro-->
       </div>
       </div>
@@ -159,66 +165,8 @@ if ($_SESSION['ventas']==1) {
   </div>
 
 
-<!--Modal Validar Stock-->
-<div class="modal fade" id="myModalStock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Stock insuficiente </h4>
-        </div>
-        <div class="modal-body">
-        
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- fin Modal-->
 
-
-  <!--Modal-->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Articulo <- </h4>
-        </div>
-        <div class="modal-body">
-          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-            <thead>
-              <th>Opciones</th>
-              <th>Nombre</th>
-              <th>Categoria</th>
-              <th>Código</th>
-              <th>Stock</th>
-              <th>Precio Venta</th>
-              <th>Imagen</th>
-            </thead>
-            <tbody>
-              
-            </tbody>
-            <tfoot>
-              <th>Opciones</th>
-              <th>Nombre</th>
-              <th>Categoria</th>
-              <th>Código</th>
-              <th>Stock</th>
-              <th>Precio Venta</th>
-              <th>Imagen</th>
-            </tfoot>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- fin Modal-->
+  
 <?php 
 }else{
  require 'noacceso.php'; 
