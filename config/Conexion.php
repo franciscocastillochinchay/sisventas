@@ -20,10 +20,12 @@ return $query;
 	}
 
 	function ejecutarConsultaSimpleFila($sql){
-global $conexion;
-$query=$conexion->query($sql);
-$row=$query->fetch_assoc();
-return $row;
+		
+		
+		global $conexion;
+		$query=$conexion->query($sql);
+		$row=$query->fetch_assoc();
+		return $row;
 	}
 function ejecutarConsulta_retornarID($sql){
 global $conexion;

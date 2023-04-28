@@ -22,16 +22,37 @@ $montopago=isset($_POST["montopago"])? limpiarCadena($_POST["montopago"]):"";
 $fechapago=isset($_POST["fechapago"])? limpiarCadena($_POST["fechapago"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
 $idventapago=isset($_POST["idventapago"])? limpiarCadena($_POST["idventapago"]):"";
-
+$anegativo=0;
 
 switch ($_GET["op"]) {
 	case 'guardaryeditarpagos':
-	if (empty($idventa)) {
-		$rspta=$venta->insertar($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion); 
-		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
-	}else{
-        
-	}
+	
+	
+		$rspta=$venta->validarnegativo($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion); 
+
+		//while ($reg=$rspta->fetch_object()) {
+		//	$anegativo= $reg->negativo;				
+		//}	
+		
+
+		$anegativo=$rspta["negativo"];
+		
+
+		echo "<script>console.log('AAAAAAA: " . $rspta["negativo"]. "' );</script>";	 	
+
+		if ($anegativo<0){
+			echo "$anegativo";
+
+			echo "   Saldo a negativo";
+
+		}else{
+			//echo "<script>console.log('Debug Objects: " . $reg['negativo'] . "' );</script>";	 		
+
+			$rspta=$venta->insertar($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion); 
+			echo $rspta ? "Pago registrado correctamente" : "No se pudo registrar los datos";
+
+		}
+			
 		break;
 	
 
@@ -99,7 +120,8 @@ switch ($_GET["op"]) {
             "4"=>$reg->tipo_comprobante,
             "5"=>$reg->serie_comprobante. '-' .$reg->num_comprobante,
             "6"=>$reg->total_venta,
-            "7"=>($reg->estado=='Aceptado')?'<span class="label bg-green">Aceptado</span>':'<span class="label bg-red">Anulado</span>'
+			"7"=>$reg->saldo,
+            "8"=>($reg->estado=='Aceptado')?'<span class="label bg-green">Aceptado</span>':'<span class="label bg-red">Anulado</span>'
               );
 		}
 		$results=array(

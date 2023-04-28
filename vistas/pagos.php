@@ -37,6 +37,7 @@ if ($_SESSION['ventas']==1) {
                     <th>Documento</th>
                     <th>Número</th>
                     <th>Total Venta</th>
+                    <th>Saldo</th>
                     <th>Estado</th>
                   </thead>
                   <tbody>
@@ -49,6 +50,7 @@ if ($_SESSION['ventas']==1) {
                     <th>Documento</th>
                     <th>Número</th>
                     <th>Total Venta</th>
+                    <th>Saldo</th>
                     <th>Estado</th>
                   </tfoot>   
                 </table>

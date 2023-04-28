@@ -14,12 +14,42 @@ public function insertar($idventapago,$idusuario,$fechapago,$numeropago,$montopa
 	$sql="INSERT INTO pagos (idventa,idusuario,fecha_hora,numero,monto,estado,descripcion) VALUES ('$idventapago','$idusuario','$fechapago','$numeropago','$montopago','Aceptado','$descripcion')";
 	
 	//echo "<script>console.log('Debug Objects: " . $sql . "' );</script>";
-	 return ejecutarConsulta($sql);
+	  ejecutarConsulta($sql);
+
+
+	 $sql1="UPDATE venta v
+	 set v.saldo= total_venta-(SELECT sum(p1.monto) 
+														 FROM pagos p1
+														 WHERE p1.estado<>'Anulado'
+														 and p1.estado='Aceptado'
+														 and p1.idventa='$idventapago')
+	 where v.idventa='$idventapago'";
+		//echo "<script>console.log('Debug Objects: " . $sql1 . "' );</script>";	 
+	 return ejecutarConsulta($sql1);
+
 }
 
 public function anular($idventa){
 	$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
 	return ejecutarConsulta($sql);
+}
+
+public function validarnegativo($idventapago,$idusuario,$fechapago,$numeropago,$montopago,$descripcion){
+	
+	
+
+	$sql1="SELECT v.total_venta-(IFNULL(sum(p.monto),0)+$montopago) negativo
+		FROM venta v 
+		LEFT JOIN pagos p on v.idventa=p.idventa
+		WHERE v.estado<>'Anulado'
+		and p.estado='Aceptado'
+		and p.idventa=$idventapago";
+
+	
+	//echo `<script>console.log('YYYYY: " . $sql1 . "' );</script>`;	 
+	//echo "$sql1";
+
+		return ejecutarConsultaSimpleFila($sql1);
 }
 
 
@@ -29,8 +59,8 @@ public function mostrar($idventa){
 	return ejecutarConsultaSimpleFila($sql);
 }
 
-public function listarDetallePagos($idpago){
-	$sql="SELECT v.idventa,p.numero,DATE(p.fecha_hora) fechapago,p.monto,p.estado,p.descripcion FROM venta v LEFT JOIN pagos p on v.idventa=p.idventa WHERE v.estado<>'Anulado' and p.idventa='$idpago'";
+public function listarDetallePagos($idventa){
+	$sql="SELECT v.idventa,p.numero,DATE(p.fecha_hora) fechapago,p.monto,p.estado,p.descripcion FROM venta v LEFT JOIN pagos p on v.idventa=p.idventa WHERE v.estado<>'Anulado' and p.idventa='$idventa'";
 	return ejecutarConsulta($sql);
 }
 
