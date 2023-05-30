@@ -16,8 +16,8 @@ require('Factura.php');
 //establecemos los datos de la empresa
 $logo="logo.png";
 $ext_logo="png";
-$empresa="UNPRG Center S.A.C.";
-$documento="1024324561";
+$empresa="Corporación María Gracia EIRL.";
+$documento="20600392281";
 $direccion="Chiclayo 123";
 $telefono="999999";
 $email="email@gmail.com";

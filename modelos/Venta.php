@@ -28,6 +28,12 @@ public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comproba
 }
 
 public function anular($idventa){
+
+	$sql="call sp_actualizarStockVenta('$idventa')";
+	ejecutarFuncion($sql);
+
+
+
 	$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
 	return ejecutarConsulta($sql);
 }
