@@ -28,8 +28,14 @@ public function insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_compro
 }
 
 public function anular($idingreso){
-	$sql="UPDATE ingreso SET estado='Anulado' WHERE idingreso='$idingreso'";
+
+	$sql="call sp_actualizarStock('$idingreso')";
+	ejecutarFuncion($sql);
+
+	$sql="UPDATE ingreso SET estado='Anulado' WHERE idingreso='$idingreso' ";
 	return ejecutarConsulta($sql);
+
+
 }
 
 
